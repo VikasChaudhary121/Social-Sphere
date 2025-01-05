@@ -1,6 +1,7 @@
 import express from "express";
 import authRoute from "./routes/authRoutes.js";
 import userRoute from "./routes/userRoutes.js";
+import postRoute from "./routes/postRoutes.js";
 import dotenv from "dotenv";
 import { connectMongo } from "./db/connectMongodb.js";
 import cookieParser from "cookie-parser";
@@ -22,6 +23,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
 
 app.get("/", (req, res) => {
   res.send("This is home page");
