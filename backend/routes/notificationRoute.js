@@ -1,5 +1,5 @@
 import express from "express";
-import { protectedRoute } from "../midleware/protectRoute";
+import { protectedRoute } from "../midleware/protectRoute.js";
 import {
   deleteNotification,
   getNotifications,
@@ -10,4 +10,4 @@ const router = express.Router();
 router.get("/", protectedRoute, getNotifications);
 router.delete("/", protectedRoute, deleteNotification);
 
-export default routerl;
+export default router;
