@@ -3,7 +3,7 @@ import Notification from "../models/notificationModel.js";
 export const getNotifications = async (req, res) => {
   try {
     const userId = req.user._id;
-    const notifications = Notification.find({ to: userId }).populate({
+    const notifications = await Notification.find({ to: userId }).populate({
       path: "from",
       select: "userName profileImg",
     });
