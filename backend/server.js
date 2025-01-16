@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import authRoute from "./routes/authRoutes.js";
 import userRoute from "./routes/userRoutes.js";
 import postRoute from "./routes/postRoutes.js";
@@ -21,11 +22,19 @@ const app = express();
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+const __dirname = path.resolve();
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/notifications", notificationRoute);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 
 app.get("/", (req, res) => {
   res.send("This is home page");
